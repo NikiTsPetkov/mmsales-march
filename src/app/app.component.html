@@ -1,0 +1,116 @@
+<main class="bg-blue-800">
+  <div>
+    <h1><span>1074</span> ОМВ Слатинска</h1>
+    <h3>Изпълнение Магазин, Гастро и Форкорт за месец {{ month }}</h3>
+    <div>
+      <p>
+        Дневна цел за артикули VIVA - {{ viva / days | number: '1.0-0' }} бр.
+      </p>
+      <p>
+        Дневна цел за топли напитки -
+        {{ hotDrinks / days | number: '1.0-0' }} бр.
+      </p>
+      <p>
+        Дневна цел за з.т. Caristal -
+        {{ caristal / days | number: '1.0-0' }} бр.
+      </p>
+    </div>
+  </div>
+  <div>
+    <table class="table-primary">
+      <thead>
+        <tr>
+          <th>ден</th>
+          <th>артикули VIVA</th>
+          <th>топли напитки</th>
+          <th>з.т. Caristal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="first-row">
+          <td>цели за месеца &raquo;</td>
+          <td>{{ viva | number: '1.0-0' }} бр.</td>
+          <td>{{ hotDrinks | number: '1.0-0' }} бр.</td>
+          <td>{{ caristal | number: '1.0-0' }} бр.</td>
+        </tr>
+        <tr></tr>
+        <tr *ngFor="let result of data">
+          <td>{{ result.day }}.{{ month }}</td>
+          <td *ngIf="viva / days < result.vivaArticles" class="green">
+            {{ result.vivaArticles | number: '1.0-0' }} бр. &#10003;
+          </td>
+          <td *ngIf="viva / days >= result.vivaArticles" class="red">
+            {{ result.vivaArticles | number: '1.0-0' }} бр. &#10007;
+          </td>
+          <td *ngIf="hotDrinks / days < result.hotDrinksArticles" class="green">
+            {{ result.hotDrinksArticles | number: '1.0-0' }} бр. &#10003;
+          </td>
+          <td *ngIf="hotDrinks / days >= result.hotDrinksArticles" class="red">
+            {{ result.hotDrinksArticles | number: '1.0-0' }} бр. &#10007;
+          </td>
+          <td *ngIf="caristal / days < result.caristalArticles" class="green">
+            {{ result.caristalArticles | number: '1.0-0' }} бр. &#10003;
+          </td>
+          <td *ngIf="caristal / days >= result.caristalArticles" class="red">
+            {{ result.caristalArticles | number: '1.0-0' }} бр. &#10007;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <p>
+      Артикули ВИВА: За {{ data.length }}
+      {{ data.length !== 1 ? 'дни' : 'ден' }} {{ condition1 }}:
+      {{ sum1 - (viva * data.length) / days | number: '1.0-0' }} бр.
+    </p>
+    <p *ngIf="viva > sum1">
+      До изпълнение на целта на артикули ВИВА остават:
+      {{ viva - sum1 | number: '1.0-0' }} бр.
+    </p>
+    <p class="green">
+      {{ sum1 > viva ? 'Целта за месеца на Артикули ВИВА е изпълнена!' : '' }}
+    </p>
+  </div>
+  <div class="card">
+    <p>
+      Топли напитки: За {{ data.length }}
+      {{ data.length !== 1 ? 'дни' : 'ден' }} {{ condition2 }} :
+      {{ sum2 - (hotDrinks * data.length) / days | number: '1.0-0' }} бр.
+    </p>
+    <p *ngIf="hotDrinks > sum2">
+      До изпълнение на целта на топли напитки остават:
+      {{ hotDrinks - sum2 | number: '1.0-0' }} бр.
+    </p>
+    <p class="green">
+      {{
+        sum2 > hotDrinks ? 'Целта за месеца на топли напитки е изпълнена!' : ''
+      }}
+    </p>
+  </div>
+  <div class="card">
+    <p>
+      Зимни течности Caristal: За {{ data.length }}
+      {{ data.length !== 1 ? 'дни' : 'ден' }} {{ condition3 }} :
+      {{ sum3 - (caristal * data.length) / days | number: '1.0-0' }} бр.
+    </p>
+    <p *ngIf="caristal > sum3">
+      До изпълнение на целта на зимна течност Каристал остават:
+      {{ caristal - sum3 | number: '1.0-0' }} бр.
+    </p>
+    <p class="green">
+      {{
+        sum3 > caristal
+          ? 'Целта за месеца на зимна течност Каристал е изпълнена!'
+          : ''
+      }}
+    </p>
+  </div>
+</main>
+<footer>
+  <p class="time">
+    <span>Обновено в: 16:10 ч. / 12.03.2024 г.</span>
+  </p>
+  <p>OMV Slatinska &trade; &copy; &reg; 2024 Version 3.0.7</p>
+  <!-- <p>Powered by fuels pumps from 1 to 6.</p> -->
+</footer>
